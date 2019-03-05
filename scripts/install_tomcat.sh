@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd /files
-tar -xzf tomcat-8.0.11.tar.gz
+tar -xzf /files/tomcat-8.0.11.tar.gz
 mv /files/apache-tomcat-8.0.11 /tomcat
 sed -i -e 's/password="secret"/password="'$PASSWORD'"/g' /scripts/tomcat-users.xml
 mv /scripts/tomcat-users.xml /tomcat/conf

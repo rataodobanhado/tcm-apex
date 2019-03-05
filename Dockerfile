@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:14.04.1
 
 MAINTAINER Francisco Neto <francisco.neto@tcm.pa.gov.br> based on Andrzej Raczkowski <araczkowski@gmail.com>
 
@@ -11,7 +11,7 @@ ENV ORACLE_HOME /u01/app/oracle/product/11.2.0/xe
 ENV PATH $ORACLE_HOME/bin:$PATH
 ENV ORACLE_SID=XE
 
-EXPOSE 22 1521 8080
+EXPOSE 1521 8080
 
 # all installation files
 COPY scripts /scripts
