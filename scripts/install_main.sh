@@ -7,8 +7,12 @@ apt-get update && apt-get install -y unzip vim curl
 
 # Download files
 echo "--------------------------------------------------"
-echo "Downloading all files............................."
-########################./scripts/download_files.sh
+if [ "$ENVIRONMENT" == "WEB" ]
+   echo "Downloading all files............................."
+	 ./scripts/download_files.sh
+else
+   echo "Files copied from LOCAL MACHINE..................."
+fi	 
 #
 #
 echo "--------------------------------------------------"

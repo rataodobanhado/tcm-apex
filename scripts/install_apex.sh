@@ -67,9 +67,8 @@ conf_rest(){
 
 unzip_apex(){
 	echo "Extracting Apex-18.2"
-	cat /files/apex_18.2.zipa* > /files/apex_18.2.zip
 	rm -rf /u01/app/oracle/apex
-  cat /files/apex_18.2.zip.part-a* > /files/apex_18.2.zip	
+	cat /files/apex_18.2.zipa* > /files/apex_18.2.zip
 	unzip /files/apex_18.2.zip -d /u01/app/oracle/
 }
 
