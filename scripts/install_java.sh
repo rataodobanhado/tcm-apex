@@ -1,8 +1,8 @@
 #!/bin/bash
 cd /files
 
-tar -xzf /files/jre-8u201-linux-x64.tar.gz
-mv /files/jre1.8.0_201 /usr/local/java
+tar -xzf jre-8u201-linux-x64.tar.gz
+mv jre1.8.0_201 /usr/local/java
 echo 'JAVA_HOME=/usr/local/java' >> /etc/profile
 echo 'PATH=$PATH:$HOME/bin:$JAVA_HOME/bin' >> /etc/profile
 echo 'export JAVA_HOME' >> /etc/profile
