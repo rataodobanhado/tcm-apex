@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:14.04
 
 MAINTAINER Francisco Neto <francisco.neto@tcm.pa.gov.br> based on Andrzej Raczkowski <araczkowski@gmail.com>
 
