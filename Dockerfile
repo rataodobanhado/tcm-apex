@@ -17,7 +17,7 @@ EXPOSE 1521 8080
 COPY scripts /scripts
 
 # ! to speed up the build process - only to tests the build process !!!
-# COPY files /files
+ COPY files /files
 # ! to speed up the build process - only to tests the build process !!!
 
 # start the installation

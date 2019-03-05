@@ -40,7 +40,7 @@ downloadFiles () {
 	for part in "${files[@]}"; do
 		echo "[Downloading '$part' (part $i/27)]"
  		curl --progress-bar --retry 3 -m 120 -o $part -L $url/blob/master/files/$part?raw=true
-		echo < file $part 
+		echo $(file $part) 
 		i=$((i + 1))
 	done
 }
