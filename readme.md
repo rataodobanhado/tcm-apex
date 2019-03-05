@@ -11,13 +11,25 @@ Arquivos de timezone do Oracle atualizados para a versao 31
 
     docker pull fnetobr/tcm-apex
 
-#### Execute o container basedo na imagem do docker com as ports 8081 e 1521 abertas:
+##### Execute o container baseado na imagem do docker com as ports 8081 e 1521 abertas:
 
     docker run -d --name <nome-do-seu-container> -p 8081:8080 -p 1521:1521 fnetobr/tcm-apex    
 
+##### Execute o container através do docker-compose
+	Exemplo de arquivo docker-compose.yml com portas 8081 e 1521 abertas e associação da pasta docker_files com a pasta /tmp/docker_files do container (modificar o parâmetro par o formato Windows se for o caso):
+	
+	db:
+      image: fnetobr/tcm-apex
+      container_name: tcm-apex
+    ports:
+      - 1521:1521
+      - 8081:8080
+    volumes:
+      - /docker_files:/tmp/docker_files
+
 #### Senha para SYS, SYSTEM, Tomcat ADMIN e APEX ADMIN:
 
-        secret
+    secret
 
 ##### Conecte-se ao Oracle com as seguintes credenciais:
 
@@ -30,13 +42,13 @@ Arquivos de timezone do Oracle atualizados para a versao 31
 
 ##### Conecte-se ao Tomcat Manager com as seguintes credenciais:
 
-    http://localhost:8080/manager
+    http://localhost:8081/manager
     usuário: ADMIN
     senha: secret
 
 ##### Conecte-se ao console do Oracle Application Express pelo ORDS com as seguintes:
 
-    http://localhost:8080/ords/apex
+    http://localhost:8081/ords/apex
     workspace: INTERNAL
     usuário: ADMIN
     senha: secret
