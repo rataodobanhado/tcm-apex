@@ -16,8 +16,8 @@ Arquivos de timezone do Oracle atualizados para a versao 31
     docker run -d --name <nome-do-seu-container> -p 8081:8080 -p 1521:1521 fnetobr/tcm-apex    
 
 #### Execute o container através do docker-compose
-	Exemplo de arquivo <b>docker-compose.yml</b> com portas 8081 e 1521 abertas e associação da
-    pasta <b>/docker_files</b> com a pasta <b>/tmp/docker_files</b> do container (modificar o parâmetro 
+	Exemplo de arquivo **docker-compose.yml** com portas 8081 e 1521 abertas e associação da
+    pasta **/docker_files** com a pasta **/tmp/docker_files** do container (modificar o parâmetro 
     para o formato Windows se for o caso):
 	
 	db:
@@ -30,11 +30,11 @@ Arquivos de timezone do Oracle atualizados para a versao 31
       - /docker_files:/tmp/docker_files
 
     Criar o arquivo docker-compose.yml como no exemplo acima em uma pasta e executar o 
-    comando <b>docker-compose up</b> a partir da linha de comando dentro da pasta.
+    comando **docker-compose up** a partir da linha de comando dentro da pasta.
 
 ## Senha para SYS, SYSTEM, Tomcat ADMIN e APEX ADMIN:
 
-    <b>secret</b>
+    **secret**
 
 #### Conecte-se ao Oracle com as seguintes credenciais:
 
