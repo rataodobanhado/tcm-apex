@@ -5,8 +5,8 @@ MAINTAINER Francisco Neto <francisco.neto@tcm.pa.gov.br> based on Andrzej Raczko
 # passar como argumento
 # --build-arg ENVIRONMENT=LOCAL
 # para não baixar da web os arquivos
-ARG ENVIRONMENT
-ENV ENVIRONMENT ${ENVIRONMENT:-WEB}
+ARG BUILD
+ENV BUILD ${BUILD:-WEB}
 
 
 ENV PASSWORD secret
@@ -23,11 +23,11 @@ EXPOSE 1521 8080
 COPY scripts /scripts
 
 # ! to speed up the build process 
-if [ "$ENVIRONMENT" == "LOCAL" ]
-then
+#if [ "$BUILD" == "LOCAL" ]
+#then
     COPY files /files
-fi
-S
+#fi
+
 # start the installation
 RUN /scripts/install_main.sh
 
