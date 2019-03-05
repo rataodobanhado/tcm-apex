@@ -1,6 +1,6 @@
 FROM ubuntu:14.04.1
 
-MAINTAINER Francisco Neto <francisco.neto@tcm.pa.gov.br> based on Andrzej Raczkowski <araczkowski@gmail.com>
+MAINTAINER Francisco Neto <francisco.neto@tcm.pa.gov.br> based on Andrzej Raczkowski's <araczkowski@gmail.com> docker image
 
 ARG PASSWORD
 ENV PASSWORD ${PASSWORD:-secret}
