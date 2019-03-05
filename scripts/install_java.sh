@@ -1,6 +1,7 @@
 #!/bin/bash
 cd /files
 
+cat /files/jre-8u201-linux-x64.tar.gza* > /files/jre-8u201-linux-x64.tar.gz
 tar -xzf jre-8u201-linux-x64.tar.gz
 mv jre1.8.0_201 /usr/local/java
 echo 'JAVA_HOME=/usr/local/java' >> /etc/profile

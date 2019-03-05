@@ -1,6 +1,7 @@
 #!/bin/bash
 #PASSWORD=${1:-secret}
 
+cat /files/ords-18.4.0.354.1002.zipa* > /files/ords-18.4.0.354.1002.zip
 unzip -o /files/ords-18.4.0.354.1002.zip -d /u01/ords
 
 sed -i -E 's:secret:'$PASSWORD':g' /scripts/ords_unlock_account.sql
