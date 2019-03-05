@@ -5,7 +5,6 @@ apt-get update && apt-get install -y -q libaio1 net-tools bc
 ln -s /usr/bin/awk /bin/awk && mkdir /var/lock/subsys
 chmod 755 /sbin/chkconfig
 
-
 cat /files/oracle-xe_11.2.0-1.0_amd64.deba* > /files/oracle-xe_11.2.0-1.0_amd64.deb
 dpkg --install /files/oracle-xe_11.2.0-1.0_amd64.deb
 mv /scripts/init.ora       /u01/app/oracle/product/11.2.0/xe/config/scripts
