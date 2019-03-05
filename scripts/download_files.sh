@@ -10,21 +10,6 @@ downloadFiles () {
     oracle-xe_11.2.0-1.0_amd64.debaa
     oracle-xe_11.2.0-1.0_amd64.debab
     oracle-xe_11.2.0-1.0_amd64.debac
-    oracle-xe_11.2.0-1.0_amd64.debad
-    oracle-xe_11.2.0-1.0_amd64.debae
-    oracle-xe_11.2.0-1.0_amd64.debaf
-    oracle-xe_11.2.0-1.0_amd64.debag
-    oracle-xe_11.2.0-1.0_amd64.debah
-    oracle-xe_11.2.0-1.0_amd64.debai
-    oracle-xe_11.2.0-1.0_amd64.debaj
-    oracle-xe_11.2.0-1.0_amd64.debak
-    oracle-xe_11.2.0-1.0_amd64.debal
-    oracle-xe_11.2.0-1.0_amd64.debam
-    oracle-xe_11.2.0-1.0_amd64.deban
-    oracle-xe_11.2.0-1.0_amd64.debao
-    oracle-xe_11.2.0-1.0_amd64.debap
-    oracle-xe_11.2.0-1.0_amd64.debaq
-    oracle-xe_11.2.0-1.0_amd64.debar
 	  timezlrg_31.dat
   	timezone_31.dat
     apex_18.2.zip.part-aa
@@ -37,7 +22,7 @@ downloadFiles () {
 
 	local i=1
 	for part in "${files[@]}"; do
-		echo "[Downloading '$part' (part $i/26)]"
+		echo "[Downloading '$part' (part $i/11)]"
 		curl --progress-bar --retry 3 -m 60 -o $part -L $url/blob/master/files/$part?raw=true
 		i=$((i + 1))
 	done
