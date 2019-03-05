@@ -3,7 +3,7 @@ FROM ubuntu:14.04.1
 MAINTAINER Francisco Neto <francisco.neto@tcm.pa.gov.br> based on Andrzej Raczkowski's <araczkowski@gmail.com> docker image
 
 # passar como argumento
-# --build-arg ENVIRONMENT=LOCAL
+# --build-arg BUILD=LOCAL
 # para não baixar da web os arquivos
 ARG BUILD
 ENV BUILD ${BUILD:-WEB}

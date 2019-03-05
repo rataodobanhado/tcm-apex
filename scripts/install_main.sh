@@ -7,7 +7,7 @@ apt-get update && apt-get install -y unzip vim curl
 
 # Download files
 echo "--------------------------------------------------"
-if [ "BUILD" == "WEB" ]
+if [ "$BUILD" == "WEB" ]; then
    echo "Downloading all files............................."
 	 ./scripts/download_files.sh
 else
