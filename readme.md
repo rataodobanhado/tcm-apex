@@ -17,8 +17,8 @@ _Arquivos de timezone do Oracle atualizados para a versao 31_
 
 #### Execute o container através do docker-compose
 	Exemplo de arquivo docker-compose.yml com portas 8081 e 1521 abertas e associação da
-    pasta /docker_files do sistema com a pasta /tmp/docker_files do container (modificar 
-		o parâmetro para o formato Windows se for o caso):
+	pasta /docker_files do sistema com a pasta /tmp/docker_files do container (modificar
+	o parâmetro para o formato Windows se for o caso):
 	
 	db:
       image: fnetobr/tcm-apex
