@@ -29,7 +29,7 @@ Arquivos de timezone do Oracle atualizados para a versao 31
     volumes:
       - /docker_files:/tmp/docker_files
 
-    Criar o arquivo docker-compose.yml como no exemplo acima em uma pasta e executar o 
+    Crie o arquivo docker-compose.yml como no exemplo acima em uma pasta e execute o 
     comando "docker-compose up" a partir da linha de comando dentro da pasta.
 
 ## Senha para SYS, SYSTEM, Tomcat ADMIN e APEX ADMIN:
