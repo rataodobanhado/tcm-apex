@@ -1,9 +1,10 @@
 tcm-apex
 ========
 
-Imagem docker do Oracle Express Edition 11g Release 2 rodando no Ubuntu 14.04.1 LTS com APEX 18.2 e ORDS 18.4.0.354.1002 no Tomcat 8 e JRE 1.8u201. 
+Imagem docker do Oracle Express Edition 11g Release 2 rodando no Ubuntu 14.04.1 LTS com APEX 18.2 localizado para 
+português do Brasil e ORDS 18.4.0.354.1002 rodando no Tomcat 8 e JRE 1.8u201. 
 
-_Arquivos de timezone do Oracle atualizados para a versao 31_
+_Arquivos de timezone do Oracle atualizados para a versão 31_
 > Baseado nos scripts de Andrzej Raczkowski <araczkowski@gmail.com> 
 
 > https://github.com/araczkowski/docker-oracle-apex-ords
