@@ -5,6 +5,22 @@ Imagem docker do Oracle Express Edition 11g Release 2 rodando no Ubuntu 14.04.1 
 
 _Arquivos de timezone do Oracle atualizados para a versao 31_
 
+# Construa sua própria imagem a partir do repositório github
+
+#### Faça o download da imagem do github
+
+    git clone --depth=1 https://github.com/rataodobanhado/tcm-apex <nome-da-sua-imagem>
+
+#### Contrua sua imagem
+
+    cd <nome-da-sua-imagem>
+    docker build -t <nome-da-sua-imagem>
+
+#### Contrua sua imagem a partir dos arquivos locais
+
+    cd <nome-da-sua-imagem>
+    docker build -t <nome-da-sua-imagem> --build-arg BUILD=LOCAL
+
 # Obtenha um prebuild da imagem a partir do docker hub
 
 ## Instalação:

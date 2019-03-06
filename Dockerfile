@@ -8,7 +8,6 @@ MAINTAINER Francisco Neto <francisco.neto@tcm.pa.gov.br> based on Andrzej Raczko
 ARG BUILD
 ENV BUILD ${BUILD:-WEB}
 
-
 ENV PASSWORD secret
 
 # get rid of the message: "debconf: unable to initialize frontend: Dialog"

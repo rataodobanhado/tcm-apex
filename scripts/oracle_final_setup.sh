@@ -22,16 +22,6 @@ verify_connection(){
 	fi
 }
 
-disable_http(){
-	echo "Turning off DBMS_XDB HTTP port"
-	echo "EXEC DBMS_XDB.SETHTTPPORT(0);" | $SQLPLUS -S $SQLPLUS_ARGS
-}
-
-enable_http(){
-	echo "Turning on DBMS_XDB HTTP port"
-	echo "EXEC DBMS_XDB.SETHTTPPORT(8888);" | $SQLPLUS -S $SQLPLUS_ARGS
-}
-
 get_oracle_home(){
 	echo "Getting ORACLE_HOME Path"
 	ORACLE_HOME=`echo -e "var ORACLEHOME varchar2(200);\n EXEC dbms_system.get_env('ORACLE_HOME', :ORACLEHOME);\n PRINT ORACLEHOME;" | $SQLPLUS -S $SQLPLUS_ARGS | grep "/.*/"`
@@ -45,6 +35,4 @@ oracle_final_setup(){
 }
 
 verify_connection
-disable_http
 oracle_final_setup
-enable_http

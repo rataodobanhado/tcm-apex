@@ -22,16 +22,6 @@ verify_connection(){
 	fi
 }
 
-disable_http(){
-	echo "Turning off DBMS_XDB HTTP port"
-	echo "EXEC DBMS_XDB.SETHTTPPORT(0);" | $SQLPLUS -S $SQLPLUS_ARGS
-}
-
-enable_http(){
-	echo "Turning on DBMS_XDB HTTP port"
-	echo "EXEC DBMS_XDB.SETHTTPPORT(8888);" | $SQLPLUS -S $SQLPLUS_ARGS
-}
-
 get_oracle_home(){
 	echo "Getting ORACLE_HOME Path"
 	ORACLE_HOME=`echo -e "var ORACLEHOME varchar2(200);\n EXEC dbms_system.get_env('ORACLE_HOME', :ORACLEHOME);\n PRINT ORACLEHOME;" | $SQLPLUS -S $SQLPLUS_ARGS | grep "/.*/"`
@@ -39,33 +29,30 @@ get_oracle_home(){
 }
 
 timezone_upgrade(){
-	cd /u01/app/oracle/apex
+	cd /scripts
 	echo "Shuting down Oracle..."
 	$SQLPLUS -S $SQLPLUS_ARGS shutdown immediate < /dev/null
 	echo "Starting in upgrade mode..."
 	$SQLPLUS -S $SQLPLUS_ARGS startup upgrade < /dev/null
 	echo "Upgrading timezone to version 31..."
-	$SQLPLUS -S $SQLPLUS_ARGS exec DBMS_DST.BEGIN_UPGRADE(31) < /dev/null
+	$SQLPLUS -S $SQLPLUS_ARGS @timezone_start_upgrade < /dev/null
 	echo "Shuting down Oracle..."
 	$SQLPLUS -S $SQLPLUS_ARGS shutdown immediate < /dev/null
 	echo "Starting in normal mode..."
 	$SQLPLUS -S $SQLPLUS_ARGS startup < /dev/null
 	cd /scripts
-	echo "Running start upgrade script..."
-	$SQLPLUS -S $SQLPLUS_ARGS @timezone_start_upgrade < /dev/null
+	echo "Running middle upgrade script..."
+	$SQLPLUS -S $SQLPLUS_ARGS @timezone_middle_upgrade < /dev/null
 	echo "Running end upgrade script..."
 	$SQLPLUS -S $SQLPLUS_ARGS @timezone_end_upgrade < /dev/null
 }
 
 copy_files(){
 	echo "Copy timezone files"
-	cp -a timezone_31.dat /u01/app/oracle/product/11.2.0/xe/oracore/zoneinfo
-  cp -a timezlrg_31.dat /u01/app/oracle/product/11.2.0/xe/oracore/zoneinfo
+	cp -a /files/timezone_31.dat /u01/app/oracle/product/11.2.0/xe/oracore/zoneinfo
+  cp -a /files/timezlrg_31.dat /u01/app/oracle/product/11.2.0/xe/oracore/zoneinfo
 }
 
 verify_connection
 copy_files
-disable_http
 timezone_upgrade
-enable_http
-

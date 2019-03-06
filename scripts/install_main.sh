@@ -11,7 +11,11 @@ if [ "$BUILD" == "WEB" ]; then
    echo "Downloading all files............................."
 	 ./scripts/download_files.sh
 else
+   echo
+   echo "**************************************************"
    echo "Files copied from LOCAL MACHINE..................."
+   echo "**************************************************"
+   echo
 fi	 
 #
 #
@@ -37,7 +41,7 @@ echo "Installing ORACLE XE.............................."
 #
 echo "--------------------------------------------------"
 echo "Upgrading ORACLE XE timezone......................"
-./scripts/upgrade_oracle_timezone.sh
+./scripts/update_oracle_timezone.sh
 #
 #
 echo "--------------------------------------------------"
@@ -51,7 +55,7 @@ echo "Installing ORACLE APEX............................"
 #
 #
 echo "--------------------------------------------------"
-echo "Installing ORACLE APEX............................"
+echo "Installing ORACLE ORDS............................"
 ./scripts/install_ords.sh
 #
 #
