@@ -40,14 +40,14 @@ enable_http(){
 }
 
 timezone_upgrade(){
-	echo "ORACLE_SID: $ORACLE_SID"
-  echo "SAVED_SID: $SAVED_SID"
+#	echo "ORACLE_SID: $ORACLE_SID"
+#  echo "SAVED_SID: $SAVED_SID"
 	$ORACLE_HOME/bin/lsnrctl status
 
 		
 	cd /scripts
-	echo "Shuting down Oracle..."
-	$SQLPLUS -S $SQLPLUS_ARGS @oracle_shutdown < /dev/null
+#	echo "Shuting down Oracle..."
+#	$SQLPLUS -S $SQLPLUS_ARGS @oracle_shutdown < /dev/null
 #	echo "Starting in upgrade mode..."
 #	$SQLPLUS -S $SQLPLUS_ARGS @oracle_startupupgrademode < /dev/null
 #	echo "Upgrading timezone to version 31..."
@@ -63,39 +63,40 @@ timezone_upgrade(){
 #	$SQLPLUS -S $SQLPLUS_ARGS @timezone_end_upgrade < /dev/null
 
 
-  echo "ORACLE_SID: $ORACLE_SID"
+#  echo "ORACLE_SID: $ORACLE_SID"
 
+  echo "Shuting down Oracle..."
+  $SQLPLUS -S / as sysdba @oracle_shutdown < /dev/null
 
 	echo "Starting in upgrade mode..."
   ORACLE_SID=$SAVED_SID
 
 
-	echo "ORACLE_SID: $ORACLE_SID"
+#	echo "ORACLE_SID: $ORACLE_SID"
 
 
-	$ORACLE_HOME/bin/lsnrctl stop
-	$ORACLE_HOME/bin/lsnrctl start
+#	$ORACLE_HOME/bin/lsnrctl stop
+#	$ORACLE_HOME/bin/lsnrctl start
 	
   
-	$SQLPLUS -S $SQLPLUS_ARGS @oracle_startupupgrademode < /dev/null
+	$SQLPLUS -S  / as sysdba @oracle_startupupgrademode < /dev/null
 	echo "Upgrading timezone to version 31..."
-	$SQLPLUS -S $SQLPLUS_ARGS @timezone_start_upgrade < /dev/null
+	$SQLPLUS -S / as sysdba @timezone_start_upgrade < /dev/null
 	echo "Shuting down Oracle..."
-	$SQLPLUS -S $SQLPLUS_ARGS @oracle_shutdown < /dev/null
+	$SQLPLUS -S / as sysdba @oracle_shutdown < /dev/null
 	echo "Starting in normal mode..."
 
 
   ORACLE_SID=$SAVED_SID
-	$ORACLE_HOME/bin/lsnrctl stop
-	$ORACLE_HOME/bin/lsnrctl start
+#	$ORACLE_HOME/bin/lsnrctl stop
+#	$ORACLE_HOME/bin/lsnrctl start
 
 
-	$SQLPLUS -S $SQLPLUS_ARGS @oracle_startup < /dev/null
-	cd /scripts
+	$SQLPLUS -S / as sysdba @oracle_startup < /dev/null
 	echo "Running middle upgrade script..."
-	$SQLPLUS -S $SQLPLUS_ARGS @timezone_middle_upgrade < /dev/null
+	$SQLPLUS -S / as sysdba @timezone_middle_upgrade < /dev/null
 	echo "Running end upgrade script..."
-	$SQLPLUS -S $SQLPLUS_ARGS @timezone_end_upgrade < /dev/null
+	$SQLPLUS -S / as sysdba @timezone_end_upgrade < /dev/null
 
 }
 
