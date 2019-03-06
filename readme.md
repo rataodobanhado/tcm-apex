@@ -1,9 +1,10 @@
 tcm-apex
 ========
 
-Imagem docker do Oracle Express Edition 11g Release 2 rodando no Ubuntu 14.04.1 LTS com APEX 18.2 e ORDS 18.4.0.354.1002 no Tomcat 8 e JRE 1.8u201. 
+Imagem docker do Oracle Express Edition 11g Release 2 rodando no Ubuntu 14.04.1 LTS com APEX 18.2 localizado para 
+português do Brasil e ORDS 18.4.0.354.1002 rodando no Tomcat 8 e JRE 1.8u201. 
 
-_Arquivos de timezone do Oracle atualizados para a versao 31_
+_Arquivos de timezone do Oracle atualizados para a versão 31_
 > Baseado nos scripts de Andrzej Raczkowski <araczkowski@gmail.com> 
 
 > https://github.com/araczkowski/docker-oracle-apex-ords
@@ -16,15 +17,15 @@ _Arquivos de timezone do Oracle atualizados para a versao 31_
 
 #### Faça o download da imagem do github
 
-    git clone --depth=1 https://github.com/rataodobanhado/tcm-apex <nome-da-sua-imagem>
+    git clone --depth=1 https://github.com/rataodobanhado/tcm-apex <nome-da-sua-imagem-git>
 
 #### Contrua sua imagem (download dos arquivos de atuaalização direto do repositório github via curl)
 
-    docker build -t <nome-da-sua-imagem[:tag]> ./<nome-da-sua-imagem>
+    docker build -t <nome-da-sua-imagem[:tag]> ./<nome-da-sua-imagem-git>
 
 #### Contrua sua imagem a partir dos arquivos locais 
 
-    docker build -t <nome-da-sua-imagem[:tag]> ./<nome-da-sua-imagem> --build-arg BUILD=LOCAL
+    docker build -t <nome-da-sua-imagem[:tag]> ./<nome-da-sua-imagem-git> --build-arg BUILD=LOCAL
 
 # Execução do container
 
