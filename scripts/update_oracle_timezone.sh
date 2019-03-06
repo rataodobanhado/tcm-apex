@@ -29,7 +29,22 @@ get_oracle_home(){
 	echo "ORACLE_HOME found: $ORACLE_HOME"
 }
 
+disable_http(){
+	echo "Turning off DBMS_XDB HTTP port"
+	echo "EXEC DBMS_XDB.SETHTTPPORT(0);" | $SQLPLUS -S $SQLPLUS_ARGS
+}
+
+enable_http(){
+	echo "Turning on DBMS_XDB HTTP port"
+	echo "EXEC DBMS_XDB.SETHTTPPORT(8888);" | $SQLPLUS -S $SQLPLUS_ARGS
+}
+
 timezone_upgrade(){
+	echo "ORACLE_SID: $ORACLE_SID"
+  echo "SAVED_SID: $SAVED_SID"
+	$ORACLE_HOME/bin/lsnrctl status
+
+		
 	cd /scripts
 	echo "Shuting down Oracle..."
 	$SQLPLUS -S $SQLPLUS_ARGS @oracle_shutdown < /dev/null
@@ -47,15 +62,34 @@ timezone_upgrade(){
 #	echo "Running end upgrade script..."
 #	$SQLPLUS -S $SQLPLUS_ARGS @timezone_end_upgrade < /dev/null
 
+
+  echo "ORACLE_SID: $ORACLE_SID"
+
+
 	echo "Starting in upgrade mode..."
   ORACLE_SID=$SAVED_SID
+
+
+	echo "ORACLE_SID: $ORACLE_SID"
+
+
+	$ORACLE_HOME/bin/lsnrctl stop
+	$ORACLE_HOME/bin/lsnrctl start
+	
+  
 	$SQLPLUS -S $SQLPLUS_ARGS @oracle_startupupgrademode < /dev/null
 	echo "Upgrading timezone to version 31..."
 	$SQLPLUS -S $SQLPLUS_ARGS @timezone_start_upgrade < /dev/null
 	echo "Shuting down Oracle..."
 	$SQLPLUS -S $SQLPLUS_ARGS @oracle_shutdown < /dev/null
 	echo "Starting in normal mode..."
+
+
   ORACLE_SID=$SAVED_SID
+	$ORACLE_HOME/bin/lsnrctl stop
+	$ORACLE_HOME/bin/lsnrctl start
+
+
 	$SQLPLUS -S $SQLPLUS_ARGS @oracle_startup < /dev/null
 	cd /scripts
 	echo "Running middle upgrade script..."
@@ -72,5 +106,7 @@ copy_files(){
 }
 
 verify_connection
+disable_http
 copy_files
 timezone_upgrade
+enable_http
