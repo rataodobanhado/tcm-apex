@@ -40,13 +40,13 @@ echo "Installing ORACLE XE.............................."
 #
 #
 echo "--------------------------------------------------"
-echo "Upgrading ORACLE XE timezone......................"
-./scripts/update_oracle_timezone.sh
+echo "Finishing Oracle setup............................"
+./scripts/oracle_final_setup.sh
 #
 #
 echo "--------------------------------------------------"
-echo "Finishing Oracle setup............................"
-./scripts/oracle_final_setup.sh
+echo "Upgrading ORACLE XE timezone......................"
+./scripts/update_oracle_timezone.sh
 #
 #
 echo "--------------------------------------------------"
@@ -62,7 +62,7 @@ echo "Installing ORACLE ORDS............................"
 echo "--------------------------------------------------"
 echo "Clean............................................."
 echo "Removing temp files"
-rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* /files
+rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* /files /scripts
 rm -rf /u01/app/oracle/apex /u01/ords/ords.war
 echo "apt-get clean"
 apt-get clean

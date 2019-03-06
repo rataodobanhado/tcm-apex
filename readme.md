@@ -10,18 +10,17 @@ _Arquivos de timezone do Oracle atualizados para a versao 31_
 #### Faça o download da imagem do github
 
     git clone --depth=1 https://github.com/rataodobanhado/tcm-apex <nome-da-sua-imagem>
+		cd <nome-da-sua-imagem>
 
-#### Contrua sua imagem (download dos arquivos de atualização direto do repositório via curl)
+#### Contrua sua imagem (download dos arquivos de atuaalização direto do repositório via curl)
 
-    docker build -t ./<nome-da-sua-imagem>
+    docker build -t <nome-da-sua-imagem[:tag]> ./<nome-da-sua-imagem>
 
 #### Contrua sua imagem a partir dos arquivos locais 
 
-    docker build -t ./<nome-da-sua-imagem> --build-arg BUILD=LOCAL
+    docker build -t <nome-da-sua-imagem[:tag]> ./<nome-da-sua-imagem> --build-arg BUILD=LOCAL
 
 # Obtenha um prebuild da imagem a partir do docker hub
-
-#### Instalação:
 
     docker pull fnetobr/tcm-apex
 
