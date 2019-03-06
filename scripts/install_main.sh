@@ -45,11 +45,6 @@ echo "Finishing Oracle setup............................"
 #
 #
 echo "--------------------------------------------------"
-echo "Upgrading ORACLE XE timezone......................"
-./scripts/update_oracle_timezone.sh
-#
-#
-echo "--------------------------------------------------"
 echo "Installing ORACLE APEX............................"
 ./scripts/install_apex.sh
 #
@@ -57,6 +52,11 @@ echo "Installing ORACLE APEX............................"
 echo "--------------------------------------------------"
 echo "Installing ORACLE ORDS............................"
 ./scripts/install_ords.sh
+#
+#
+echo "--------------------------------------------------"
+echo "Upgrading ORACLE XE timezone......................"
+./scripts/update_oracle_timezone.sh
 #
 #
 echo "--------------------------------------------------"
