@@ -67,36 +67,43 @@ timezone_upgrade(){
   echo "Shuting down Oracle..."
   echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
 	cat oracle_shutdown.sql >> tmp.sql 	
+	cat tmp.sql
   $SQLPLUS -S / as sysdba @tmp < /dev/null
 
 	echo "Starting in upgrade mode..."
 	echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
 	cat oracle_startupupgrademode.sql >> tmp.sql 	
+	cat tmp.sql
 	$SQLPLUS -S  / as sysdba @tmp < /dev/null
 	
 	echo "Upgrading timezone to version 31..."
   echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
 	cat timezone_start_upgrade.sql >> tmp.sql 	
+	cat tmp.sql
 	$SQLPLUS -S / as sysdba @tmp < /dev/null
 
 	echo "Shuting down Oracle..."
   echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
 	cat oracle_shutdown.sql >> tmp.sql 	
+	cat tmp.sql
 	$SQLPLUS -S / as sysdba @tmp < /dev/null
 
 	echo "Starting in normal mode..."
   echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
 	cat oracle_startup.sql >> tmp.sql 	
+	cat tmp.sql
 	$SQLPLUS -S / as sysdba @tmp < /dev/null
 
 	echo "Running middle upgrade script..."
   echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
 	cat timezone_middle_upgrade.sql >> tmp.sql 	
+	cat tmp.sql
 	$SQLPLUS -S / as sysdba @tmp < /dev/null
 
 	echo "Running end upgrade script..."
   echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
 	cat timezone_end_upgrade.sql >> tmp.sql 	
+	cat tmp.sql
 	$SQLPLUS -S / as sysdba @tmp < /dev/null
 
 }
