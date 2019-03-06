@@ -2,8 +2,9 @@
 #PASSWORD=${1:-secret}
 
 SQLPLUS=sqlplus
-SQLPLUS_ARGS="sys/$PASSWORD@XE as sysdba"
-SAVED_SID=$ORACLE_SID
+#SQLPLUS_ARGS="sys/$PASSWORD@XE as sysdba"
+SQLPLUS_ARGS="sys/$PASSWORD as sysdba"
+#SAVED_SID=$ORACLE_SID
 
 verify_connection(){
 	echo "exit" | ${SQLPLUS} -L $SQLPLUS_ARGS | grep Connected > /dev/null
@@ -46,65 +47,65 @@ timezone_upgrade(){
 
 		
 	cd /scripts
-#	echo "Shuting down Oracle..."
-#	$SQLPLUS -S $SQLPLUS_ARGS @oracle_shutdown < /dev/null
-#	echo "Starting in upgrade mode..."
-#	$SQLPLUS -S $SQLPLUS_ARGS @oracle_startupupgrademode < /dev/null
-#	echo "Upgrading timezone to version 31..."
-#	$SQLPLUS -S $SQLPLUS_ARGS @timezone_start_upgrade < /dev/null
-#	echo "Shuting down Oracle..."
-#	$SQLPLUS -S $SQLPLUS_ARGS @oracle_shutdown < /dev/null
-#	echo "Starting in normal mode..."
-#	$SQLPLUS -S $SQLPLUS_ARGS @oracle_startup < /dev/null
-#	cd /scripts
-#	echo "Running middle upgrade script..."
-#	$SQLPLUS -S $SQLPLUS_ARGS @timezone_middle_upgrade < /dev/null
-#	echo "Running end upgrade script..."
-#	$SQLPLUS -S $SQLPLUS_ARGS @timezone_end_upgrade < /dev/null
-
-
-
-  echo "Shuting down Oracle..."
-  echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
-	cat oracle_shutdown.sql >> tmp.sql 	
-	cat tmp.sql
-  $SQLPLUS -S / as sysdba @tmp < /dev/null
-
-	echo "Starting in upgrade mode..."
-	echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
-	cat oracle_startupupgrademode.sql >> tmp.sql 	
-	cat tmp.sql
-	$SQLPLUS -S  / as sysdba @tmp < /dev/null
-	
-	echo "Upgrading timezone to version 31..."
-  echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
-	cat timezone_start_upgrade.sql >> tmp.sql 	
-	cat tmp.sql
-	$SQLPLUS -S / as sysdba @tmp < /dev/null
-
 	echo "Shuting down Oracle..."
-  echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
-	cat oracle_shutdown.sql >> tmp.sql 	
-	cat tmp.sql
-	$SQLPLUS -S / as sysdba @tmp < /dev/null
-
+	$SQLPLUS -S $SQLPLUS_ARGS @oracle_shutdown < /dev/null
+	echo "Starting in upgrade mode..."
+	$SQLPLUS -S $SQLPLUS_ARGS @oracle_startupupgrademode < /dev/null
+	echo "Upgrading timezone to version 31..."
+	$SQLPLUS -S $SQLPLUS_ARGS @timezone_start_upgrade < /dev/null
+	echo "Shuting down Oracle..."
+	$SQLPLUS -S $SQLPLUS_ARGS @oracle_shutdown < /dev/null
 	echo "Starting in normal mode..."
-  echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
-	cat oracle_startup.sql >> tmp.sql 	
-	cat tmp.sql
-	$SQLPLUS -S / as sysdba @tmp < /dev/null
-
+	$SQLPLUS -S $SQLPLUS_ARGS @oracle_startup < /dev/null
+	cd /scripts
 	echo "Running middle upgrade script..."
-  echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
-	cat timezone_middle_upgrade.sql >> tmp.sql 	
-	cat tmp.sql
-	$SQLPLUS -S / as sysdba @tmp < /dev/null
-
+	$SQLPLUS -S $SQLPLUS_ARGS @timezone_middle_upgrade < /dev/null
 	echo "Running end upgrade script..."
-  echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
-	cat timezone_end_upgrade.sql >> tmp.sql 	
-	cat tmp.sql
-	$SQLPLUS -S / as sysdba @tmp < /dev/null
+	$SQLPLUS -S $SQLPLUS_ARGS @timezone_end_upgrade < /dev/null
+
+
+
+#  echo "Shuting down Oracle..."
+#  echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
+#	cat oracle_shutdown.sql >> tmp.sql 	
+#	cat tmp.sql
+#  $SQLPLUS -S / as sysdba @tmp < /dev/null
+
+#	echo "Starting in upgrade mode..."
+#	echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
+#	cat oracle_startupupgrademode.sql >> tmp.sql 	
+#	cat tmp.sql
+#	$SQLPLUS -S  / as sysdba @tmp < /dev/null
+	
+#	echo "Upgrading timezone to version 31..."
+#  echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
+#	cat timezone_start_upgrade.sql >> tmp.sql 	
+#	cat tmp.sql
+#	$SQLPLUS -S / as sysdba @tmp < /dev/null
+
+#	echo "Shuting down Oracle..."
+#  echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
+#	cat oracle_shutdown.sql >> tmp.sql 	
+#	cat tmp.sql
+#	$SQLPLUS -S / as sysdba @tmp < /dev/null
+
+#	echo "Starting in normal mode..."
+#  echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
+#	cat oracle_startup.sql >> tmp.sql 	
+#	cat tmp.sql
+#	$SQLPLUS -S / as sysdba @tmp < /dev/null
+
+#	echo "Running middle upgrade script..."
+#  echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
+#	cat timezone_middle_upgrade.sql >> tmp.sql 	
+#	cat tmp.sql
+#	$SQLPLUS -S / as sysdba @tmp < /dev/null
+
+#	echo "Running end upgrade script..."
+#  echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
+#	cat timezone_end_upgrade.sql >> tmp.sql 	
+#	cat tmp.sql
+#	$SQLPLUS -S / as sysdba @tmp < /dev/null
 
 }
 
@@ -114,7 +115,7 @@ copy_files(){
   cp -a /files/timezlrg_31.dat /u01/app/oracle/product/11.2.0/xe/oracore/zoneinfo
 }
 
-verify_connection
+#verify_connection
 #disable_http
 copy_files
 timezone_upgrade
