@@ -10,6 +10,5 @@ BEGIN
 			log_triggers_table => 'SYS.DST$TRIGGER_TABLE',
 			error_on_overlap_time => FALSE,
 			error_on_nonexisting_time => FALSE);
---	DBMS_OUTPUT.PUT_LINE('Failures:'|| :numfail);
 END;
 /

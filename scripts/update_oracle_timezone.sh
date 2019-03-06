@@ -34,8 +34,8 @@ timezone_upgrade(){
 	echo
 	$SQLPLUS -S $SQLPLUS_ARGS @oracle_startup < /dev/null 
 	echo
-	echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-	echo "Running middle upgrade script..."
+	echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+	echo "Running finl upgrade script..."
 	echo
 	$SQLPLUS -S $SQLPLUS_ARGS @timezone_middle_upgrade < /dev/null 
 	echo
