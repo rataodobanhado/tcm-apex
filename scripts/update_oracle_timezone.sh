@@ -42,7 +42,7 @@ enable_http(){
 timezone_upgrade(){
 #	echo "ORACLE_SID: $ORACLE_SID"
 #  echo "SAVED_SID: $SAVED_SID"
-	$ORACLE_HOME/bin/lsnrctl status
+#	$ORACLE_HOME/bin/lsnrctl status
 
 		
 	cd /scripts
@@ -63,40 +63,41 @@ timezone_upgrade(){
 #	$SQLPLUS -S $SQLPLUS_ARGS @timezone_end_upgrade < /dev/null
 
 
-#  echo "ORACLE_SID: $ORACLE_SID"
 
   echo "Shuting down Oracle..."
-  $SQLPLUS -S / as sysdba @oracle_shutdown < /dev/null
+  echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
+	cat oracle_shutdown.sql >> tmp.sql 	
+  $SQLPLUS -S / as sysdba @tmp < /dev/null
 
 	echo "Starting in upgrade mode..."
-  ORACLE_SID=$SAVED_SID
-
-
-#	echo "ORACLE_SID: $ORACLE_SID"
-
-
-#	$ORACLE_HOME/bin/lsnrctl stop
-#	$ORACLE_HOME/bin/lsnrctl start
+	echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
+	cat oracle_startupupgrademode.sql >> tmp.sql 	
+	$SQLPLUS -S  / as sysdba @tmp < /dev/null
 	
-  
-	$SQLPLUS -S  / as sysdba @oracle_startupupgrademode < /dev/null
 	echo "Upgrading timezone to version 31..."
-	$SQLPLUS -S / as sysdba @timezone_start_upgrade < /dev/null
+  echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
+	cat timezone_start_upgrade.sql >> tmp.sql 	
+	$SQLPLUS -S / as sysdba @tmp < /dev/null
+
 	echo "Shuting down Oracle..."
-	$SQLPLUS -S / as sysdba @oracle_shutdown < /dev/null
+  echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
+	cat oracle_shutdown.sql >> tmp.sql 	
+	$SQLPLUS -S / as sysdba @tmp < /dev/null
+
 	echo "Starting in normal mode..."
+  echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
+	cat oracle_startup.sql >> tmp.sql 	
+	$SQLPLUS -S / as sysdba @tmp < /dev/null
 
-
-  ORACLE_SID=$SAVED_SID
-#	$ORACLE_HOME/bin/lsnrctl stop
-#	$ORACLE_HOME/bin/lsnrctl start
-
-
-	$SQLPLUS -S / as sysdba @oracle_startup < /dev/null
 	echo "Running middle upgrade script..."
-	$SQLPLUS -S / as sysdba @timezone_middle_upgrade < /dev/null
+  echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
+	cat timezone_middle_upgrade.sql >> tmp.sql 	
+	$SQLPLUS -S / as sysdba @tmp < /dev/null
+
 	echo "Running end upgrade script..."
-	$SQLPLUS -S / as sysdba @timezone_end_upgrade < /dev/null
+  echo "connect $SQLPLUS_ARGS ;/" > tmp.sql
+	cat timezone_end_upgrade.sql >> tmp.sql 	
+	$SQLPLUS -S / as sysdba @tmp < /dev/null
 
 }
 
@@ -107,7 +108,7 @@ copy_files(){
 }
 
 verify_connection
-disable_http
+#disable_http
 copy_files
 timezone_upgrade
-enable_http
+#enable_http
