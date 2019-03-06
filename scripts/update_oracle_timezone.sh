@@ -31,15 +31,15 @@ get_oracle_home(){
 timezone_upgrade(){
 	cd /scripts
 	echo "Shuting down Oracle..."
-	$SQLPLUS -S $SQLPLUS_ARGS shutdown immediate < /dev/null
+	$SQLPLUS -S $SQLPLUS_ARGS @oracle_shutdown < /dev/null
 	echo "Starting in upgrade mode..."
-	$SQLPLUS -S $SQLPLUS_ARGS startup upgrade < /dev/null
+	$SQLPLUS -S $SQLPLUS_ARGS @oracle_startupupgrademode < /dev/null
 	echo "Upgrading timezone to version 31..."
 	$SQLPLUS -S $SQLPLUS_ARGS @timezone_start_upgrade < /dev/null
 	echo "Shuting down Oracle..."
-	$SQLPLUS -S $SQLPLUS_ARGS shutdown immediate < /dev/null
+	$SQLPLUS -S $SQLPLUS_ARGS @oracle_shutdown < /dev/null
 	echo "Starting in normal mode..."
-	$SQLPLUS -S $SQLPLUS_ARGS startup < /dev/null
+	$SQLPLUS -S $SQLPLUS_ARGS @oracle_startup < /dev/null
 	cd /scripts
 	echo "Running middle upgrade script..."
 	$SQLPLUS -S $SQLPLUS_ARGS @timezone_middle_upgrade < /dev/null

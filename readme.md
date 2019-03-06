@@ -11,25 +11,25 @@ _Arquivos de timezone do Oracle atualizados para a versao 31_
 
     git clone --depth=1 https://github.com/rataodobanhado/tcm-apex <nome-da-sua-imagem>
 
-#### Contrua sua imagem
+#### Contrua sua imagem (download dos arquivos de atualização direto do repositório via curl)
 
-    cd <nome-da-sua-imagem>
-    docker build -t <nome-da-sua-imagem>
+    docker build -t ./<nome-da-sua-imagem>
 
-#### Contrua sua imagem a partir dos arquivos locais
+#### Contrua sua imagem a partir dos arquivos locais 
 
-    cd <nome-da-sua-imagem>
-    docker build -t <nome-da-sua-imagem> --build-arg BUILD=LOCAL
+    docker build -t ./<nome-da-sua-imagem> --build-arg BUILD=LOCAL
 
 # Obtenha um prebuild da imagem a partir do docker hub
 
-## Instalação:
+#### Instalação:
 
     docker pull fnetobr/tcm-apex
 
-#### Execute o container baseado na imagem do docker com as ports 8081 e 1521 abertas:
+# Execução do container
 
-    docker run -d --name <nome-do-seu-container> -p 8081:8080 -p 1521:1521 fnetobr/tcm-apex    
+#### Execute o container baseado na imagem com as ports 8081 e 1521 abertas:
+
+    docker run -d --name <nome-do-seu-container> -p 8081:8080 -p 1521:1521 <nome-da-imagem> 
 
 #### Execute o container através do docker-compose
 	Exemplo de arquivo docker-compose.yml com portas 8081 e 1521 abertas e associação da
@@ -37,7 +37,7 @@ _Arquivos de timezone do Oracle atualizados para a versao 31_
 	o parâmetro para o formato Windows se for o caso):
 	
 	db:
-      image: fnetobr/tcm-apex
+      image: <nome-da-imagem> 
       container_name: <nome-do-seu-container>
     ports:
       - 1521:1521
@@ -48,9 +48,11 @@ _Arquivos de timezone do Oracle atualizados para a versao 31_
     Crie o arquivo docker-compose.yml como no exemplo acima em uma pasta e execute o 
     comando "docker-compose up" a partir da linha de comando dentro da pasta.
 
-## Senha para SYS, SYSTEM, Tomcat ADMIN e APEX ADMIN:
+# Senha para SYS, SYSTEM, Tomcat ADMIN e APEX ADMIN:
 
     secret
+
+# Conexões
 
 #### Conecte-se ao Oracle com as seguintes credenciais:
 
