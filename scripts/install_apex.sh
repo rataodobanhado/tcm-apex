@@ -47,26 +47,41 @@ apex_epg_config(){
 
 apex_upgrade(){
 	cd /u01/app/oracle/apex
+	echo
+	echo "!!!!!!!!!!!!!!!!!"
 	echo "Upgrading apex..."
+  echo
 	$SQLPLUS -S $SQLPLUS_ARGS @apexins SYSAUX SYSAUX TEMP /i/ < /dev/null
-	echo "Updating apex images"
+	echo
+	echo "!!!!!!!!!!!!!!!!!!!!!!!"
+	echo "Updating apex images..."
+  echo
 	$SQLPLUS -S $SQLPLUS_ARGS @apxldimg.sql /u01/app/oracle < /dev/null
 }
 
 apex_ptbr(){
 	cd /u01/app/oracle/apex/builder/pt-br
-	echo "Installing pt-br..."
+	echo
+	echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+	echo "Installing pt-br translation..."
+	echo
 	$SQLPLUS -S $SQLPLUS_ARGS @load_pt-br < /dev/null
 }
 
 conf_rest(){
 	cd /u01/app/oracle/apex
+	echo
+	echo "!!!!!!!!!!!!!!!!!!"
 	echo "Installing rest..."
+  echo
 	$SQLPLUS -S $SQLPLUS_ARGS @apex_rest_config.sql $PASSWORD $PASSWORD < /dev/null
 }
 
 unzip_apex(){
-	echo "Extracting Apex-18.2"
+	echo
+	echo "!!!!!!!!!!!!!!!!!!!!!!!"
+	echo "Extracting Apex-18.2..."
+	echo
 	rm -rf /u01/app/oracle/apex
 	cat /files/apex_18.2.zipa* > /files/apex_18.2.zip
 	unzip /files/apex_18.2.zip -d /u01/app/oracle/

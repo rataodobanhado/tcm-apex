@@ -1,0 +1,80 @@
+DECLARE
+  vGOAL_VERSION             NUMBER;
+  vVERSION                  NUMBER;
+	vDST_UPGRADE_STATE        VARCHAR2(20);
+	vDST_PRIMARY_TT_VERSION   NUMBER;
+	vDST_SECONDARY_TT_VERSION NUMBER;
+	vQDE_ERROS                NUMBER;
+BEGIN
+  vGOAL_VERSION := 31;
+
+
+  SELECT TZ_VERSION
+	INTO vVERSION
+	FROM REGISTRY$DATABASE;
+
+  IF vVERSION = vGOAL_VERSION THEN
+	  RAISE_APPLICATION_ERROR(-20001, 'Já atualizado para a versão 31');
+	END IF;
+
+	SELECT DST_UPGRADE_STATE, DST_PRIMARY_TT_VERSION, DST_SECONDARY_TT_VERSION
+	INTO vDST_UPGRADE_STATE, vDST_PRIMARY_TT_VERSION, vDST_SECONDARY_TT_VERSION
+	FROM (
+  	    SELECT PROPERTY_NAME, SUBSTR(property_value, 1, 30) VALUE
+	      FROM DATABASE_PROPERTIES
+	      WHERE PROPERTY_NAME LIKE 'DST_%'
+	   )
+	PIVOT (
+	       MAX(VALUE)     
+	       FOR PROPERTY_NAME IN ('DST_PRIMARY_TT_VERSION' AS DST_PRIMARY_TT_VERSION, 'DST_SECONDARY_TT_VERSION' AS DST_SECONDARY_TT_VERSION
+	                             , 'DST_UPGRADE_STATE' AS DST_UPGRADE_STATE)
+	    )
+	;  
+
+  IF vDST_PRIMARY_TT_VERSION=vVERSION AND vDST_SECONDARY_TT_VERSION=0 AND vDST_UPGRADE_STATE='NONE' THEN
+	  NULL; --continue
+	ELSE 
+    RAISE_APPLICATION_ERROR(-20001, 'Impossível continuar, verificar Note 1509653.1');
+	END IF;
+
+	EXECUTE IMMEDIATE ('PURGE DBA_RECYCLEBIN');
+
+
+/*
+–this alter session might speed up DBMS_DST on some db’s
+— see Bug 10209691 / Bug 12658443
+
+alter session set "_with_subquery"=materialize;
+— to avoid the issue in note 1407273.1
+
+alter session set "_simple_view_merging"=TRUE;
+*/
+	
+	--start prepare window, these steps will NOT update any data yet.
+  DBMS_DST.BEGIN_PREPARE(vGOAL_VERSION);
+
+  --truncate logging tables if they exist.
+	EXECUTE IMMEDIATE ('TRUNCATE TABLE SYS.DST$TRIGGER_TABLE');
+	EXECUTE IMMEDIATE ('TRUNCATE TABLE SYS.DST$AFFECTED_TABLES');
+	EXECUTE IMMEDIATE ('TRUNCATE TABLE SYS.DST$ERROR_TABLE');
+	
+  SELECT COUNT(*)
+	INTO vQDE_ERROS
+	FROM (
+		SELECT '1'
+		FROM SYS.DST$AFFECTED_TABLES
+		UNION
+		SELECT '1'
+		FROM SYS.DST$ERROR_TABLE
+	);
+	
+	--end prepare
+	DBMS_DST.END_PREPARE;
+	
+  --se ocorreu algum erro na preparação
+	IF vQDE_ERROS > 0 THEN
+    RAISE_APPLICATION_ERROR(-20001, 'Impossível continuar, '||vQDE_ERROS||' erro(s) na preparação');
+	END IF;
+	
+END;
+/

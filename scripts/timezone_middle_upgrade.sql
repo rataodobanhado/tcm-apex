@@ -1,5 +1,8 @@
 VAR numfail number
 BEGIN
+  EXECUTE IMMEDIATE ('ALTER SESSION SET "_WITH_SUBQUERY"=MATERIALIZE');
+  EXECUTE IMMEDIATE ('ALTER SESSION SET "_SIMPLE_VIEW_MERGING"=TRUE');
+
 	DBMS_DST.UPGRADE_DATABASE(:numfail,
 			parallel => TRUE,
 			log_errors => TRUE,
@@ -9,3 +12,4 @@ BEGIN
 			error_on_nonexisting_time => FALSE);
 --	DBMS_OUTPUT.PUT_LINE('Failures:'|| :numfail);
 END;
+/
