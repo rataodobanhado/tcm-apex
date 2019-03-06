@@ -3,6 +3,7 @@
 
 SQLPLUS=sqlplus
 SQLPLUS_ARGS="sys/$PASSWORD@XE as sysdba"
+SAVED_SID=$ORACLE_SID
 
 verify_connection(){
 	echo "exit" | ${SQLPLUS} -L $SQLPLUS_ARGS | grep Connected > /dev/null
@@ -31,7 +32,6 @@ get_oracle_home(){
 timezone_upgrade(){
 	cd /scripts
 	echo "Shuting down Oracle..."
-  SAVED_SID=$ORACLE_SID
 	$SQLPLUS -S $SQLPLUS_ARGS @oracle_shutdown < /dev/null
 #	echo "Starting in upgrade mode..."
 #	$SQLPLUS -S $SQLPLUS_ARGS @oracle_startupupgrademode < /dev/null

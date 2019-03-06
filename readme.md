@@ -10,7 +10,7 @@ _Arquivos de timezone do Oracle atualizados para a versao 31_
 #### Faça o download da imagem do github
 
     git clone --depth=1 https://github.com/rataodobanhado/tcm-apex <nome-da-sua-imagem>
-		cd <nome-da-sua-imagem>
+    cd <nome-da-sua-imagem>
 
 #### Contrua sua imagem (download dos arquivos de atuaalização direto do repositório via curl)
 
