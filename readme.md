@@ -29,7 +29,7 @@ _Arquivos de timezone do Oracle atualizados para a versão 31_
 
 # Execução do container
 
-#### Execute o container baseado na imagem com as ports 8081 e 1521 abertas:
+#### Execute o container baseado na imagem com as portas 8081 e 1521 abertas:
 
     docker run -d --name <nome-do-seu-container> -p 8081:8080 -p 1521:1521 <nome-da-imagem> 
 
