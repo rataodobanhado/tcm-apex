@@ -16,7 +16,8 @@ else
    echo "Files copied from LOCAL MACHINE..................."
    echo "**************************************************"
    echo
-fi	 
+   cp -a /files.tmp /files
+fi
 #
 #
 echo "--------------------------------------------------"
@@ -40,11 +41,6 @@ echo "Installing ORACLE XE.............................."
 #
 #
 echo "--------------------------------------------------"
-echo "Finishing Oracle setup............................"
-./scripts/oracle_final_setup.sh
-#
-#
-echo "--------------------------------------------------"
 echo "Installing ORACLE APEX............................"
 ./scripts/install_apex.sh
 #
@@ -62,7 +58,7 @@ echo "Upgrading ORACLE XE timezone......................"
 echo "--------------------------------------------------"
 echo "Clean............................................."
 echo "Removing temp files"
-rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* /files /scripts
+rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* /files /files.tmp /scripts
 rm -rf /u01/app/oracle/apex /u01/ords/ords.war
 echo "apt-get clean"
 apt-get clean

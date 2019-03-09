@@ -21,15 +21,11 @@ EXPOSE 1521 8080
 # all installation files
 COPY scripts /scripts
 
-# ! to speed up the build process 
-#if [ "$BUILD" == "LOCAL" ]
-#then
-    COPY files /files
-#fi
+# all build file - install_main.sh checks BUILD argument
+COPY files /files.tmp
 
 # start the installation
 RUN /scripts/install_main.sh
-
 
 # ENTRYPOINT
 ADD entrypoint.sh /

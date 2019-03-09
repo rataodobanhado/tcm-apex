@@ -1,11 +1,11 @@
 tcm-apex
 ========
 
-Imagem docker do Oracle Express Edition 11g Release 2 rodando no Ubuntu 14.04.1 LTS com APEX 18.2 localizado para 
-português do Brasil e ORDS 18.4.0.354.1002 rodando no Tomcat 8 e JRE 1.8u201. 
+Imagem docker do Oracle Express Edition 11g Release 2 rodando no Ubuntu 14.04.1 LTS com APEX 18.2 localizado para
+português do Brasil e ORDS 18.4.0.354.1002 rodando no Tomcat 8.5.38 e JRE 1.8u201.
 
 _Arquivos de timezone do Oracle atualizados para a versão 31_
-> Baseado nos scripts de Andrzej Raczkowski <araczkowski@gmail.com> 
+> Baseado nos scripts de Andrzej Raczkowski <araczkowski@gmail.com>
 
 > https://github.com/araczkowski/docker-oracle-apex-ords
 
@@ -23,7 +23,7 @@ _Arquivos de timezone do Oracle atualizados para a versão 31_
 
     docker build -t <nome-da-sua-imagem[:tag]> ./<nome-da-sua-imagem-git>
 
-#### Contrua sua imagem a partir dos arquivos locais 
+#### Contrua sua imagem a partir dos arquivos locais (mais rápido)
 
     docker build -t <nome-da-sua-imagem[:tag]> ./<nome-da-sua-imagem-git> --build-arg BUILD=LOCAL
 
@@ -31,15 +31,15 @@ _Arquivos de timezone do Oracle atualizados para a versão 31_
 
 #### Execute o container baseado na imagem com as portas 8081 e 1521 abertas:
 
-    docker run -d --name <nome-do-seu-container> -p 8081:8080 -p 1521:1521 <nome-da-imagem> 
+    docker run -d --name <nome-do-seu-container> -p 8081:8080 -p 1521:1521 <nome-da-imagem>
 
 #### Execute o container através do docker-compose
 	Exemplo de arquivo docker-compose.yml com portas 8081 e 1521 abertas e associação da
 	pasta /docker_files do sistema com a pasta /tmp/docker_files do container (modificar
 	o parâmetro para o formato Windows se for o caso):
-	
+
 	db:
-      image: <nome-da-imagem> 
+      image: <nome-da-imagem>
       container_name: <nome-do-seu-container>
     ports:
       - 1521:1521
@@ -47,7 +47,7 @@ _Arquivos de timezone do Oracle atualizados para a versão 31_
     volumes:
       - /docker_files:/tmp/docker_files
 
-    Crie o arquivo docker-compose.yml como no exemplo acima em uma pasta e execute o 
+    Crie o arquivo docker-compose.yml como no exemplo acima em uma pasta e execute o
     comando "docker-compose up" a partir da linha de comando dentro da pasta.
 
 # Senha para SYS, SYSTEM, Tomcat ADMIN e APEX ADMIN:
