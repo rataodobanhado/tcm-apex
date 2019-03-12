@@ -50,8 +50,8 @@ _Arquivos de timezone do Oracle atualizados para a versão 31_
     Crie o arquivo docker-compose.yml como no exemplo acima em uma pasta e execute o
     comando "docker-compose up" a partir da linha de comando dentro da pasta.
 
-    Faça o download: [docker-compose.yml](https://github.com/rataodobanhado/tcm-apex/blob/master/docker-compose.yml)
-
+    Faça o download: [docker-compose.yml](https://raw.githubusercontent.com/rataodobanhado/tcm-apex/master/docker-compose.yml)
+    
 
 # Senha para SYS, SYSTEM, Tomcat ADMIN e APEX ADMIN:
 
